@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+    </head>
+    <body>
+		<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="screenstate.js"></script>
+		<script type="text/javascript">
+			jQuery(function ($) {		
+				/*Setup some callbacks for each state*/
+				var screenStateManager = new ScreenStateManager();
+				screenStateManager.init();
+				window.addEventListener('resize', function() { screenStateManager.resize(); });
+				/*Setup screenstate callbacks*/
+				screenStateManager.screenState[0].callback = function() { console.log("entered screen state 0"); };
+				screenStateManager.screenState[1].callback = function() { console.log("entered screen state 1"); };
+				screenStateManager.screenState[2].callback = function() { console.log("entered screen state 2"); };
+				screenStateManager.screenState[3].callback = function() { console.log("entered screen state 3"); };
+				screenStateManager.screenState[4].callback = function() { console.log("entered screen state 4"); };
+				screenStateManager.screenState[5].callback = function() { console.log("entered screen state 5"); };
+				screenStateManager.resize(true);
+			});
+		</script>
+    </body>
+</html>
