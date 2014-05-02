@@ -17,7 +17,8 @@ function ScreenStateManager() {}
 	ScreenStateManager.prototype.resize = function(_force) {
 		var currentScreenState = this.getCurrentScreenState();
 			if(!(currentScreenState.equals(this.lastScreenState)) || _force) {
-				currentScreenState.runCallback();
+				this.lastScreenState.runCallbackExit();
+				currentScreenState.runCallbackEnter();
 				this.lastScreenState = currentScreenState;
 		}
 	}
@@ -25,7 +26,8 @@ function ScreenStateManager() {}
 		this.minwidth = _minwidth;
 		this.maxwidth = _maxwidth;
 	}
-	ScreenState.prototype.callback = null;
+	ScreenState.prototype.callbackEnter = null;
+	ScreenState.prototype.callbackExit = null;
 	ScreenState.prototype.containsX = function(_x) {
 		if(this.minwidth <= _x && this.maxwidth >= _x) return true;
 		return false;
@@ -38,6 +40,9 @@ function ScreenStateManager() {}
 	ScreenState.prototype.toString = function() {
 		return "minwidth: " + this.minwidth + ", maxwidth: " + this.maxwidth;
 	}
-	ScreenState.prototype.runCallback = function() {
-		if(typeof(this.callback) == "function") { this.callback(); }
+	ScreenState.prototype.runCallbackEnter = function() {
+		if(typeof(this.callbackEnter) == "function") { this.callbackEnter(); }
+	}
+	ScreenState.prototype.runCallbackExit = function() {
+		if(typeof(this.callbackExit) == "function") { this.callbackExit(); }
 	}
