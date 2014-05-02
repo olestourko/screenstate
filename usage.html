@@ -15,12 +15,12 @@
 				screenStateManager.init();
 				window.addEventListener('resize', function() { screenStateManager.resize(); });
 				/*Setup screenstate callbacks*/
-				screenStateManager.screenState[0].callback = function() { console.log("entered screen state 0"); };
-				screenStateManager.screenState[1].callback = function() { console.log("entered screen state 1"); };
-				screenStateManager.screenState[2].callback = function() { console.log("entered screen state 2"); };
-				screenStateManager.screenState[3].callback = function() { console.log("entered screen state 3"); };
-				screenStateManager.screenState[4].callback = function() { console.log("entered screen state 4"); };
-				screenStateManager.screenState[5].callback = function() { console.log("entered screen state 5"); };
+				screenStateManager.screenState[0].callback = function() { console.log("entered screen state 0"); };	//128 and higher
+				screenStateManager.screenState[1].callback = function() { console.log("entered screen state 1"); };	//1151 to 1280
+				screenStateManager.screenState[2].callback = function() { console.log("entered screen state 2"); };	//978 to 1150
+				screenStateManager.screenState[3].callback = function() { console.log("entered screen state 3"); };	//768 to 977
+				screenStateManager.screenState[4].callback = function() { console.log("entered screen state 4"); };	//480 to 767
+				screenStateManager.screenState[5].callback = function() { console.log("entered screen state 5"); };	//479 and lower
 				screenStateManager.resize(true);
 			});
 		</script>
