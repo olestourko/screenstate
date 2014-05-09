@@ -1,7 +1,7 @@
 function ScreenStateManager() {}
 	ScreenStateManager.prototype.getCurrentScreenState = function() {
 		for(var i = 0; i < this.screenState.length; i++) {
-			if(this.screenState[i].containsX(screen.width)) { return this.screenState[i]; }
+			if(this.screenState[i].containsX(window.innerWidth)) { return this.screenState[i]; }
 		}
 	}; 
 	ScreenStateManager.prototype.init = function() {
