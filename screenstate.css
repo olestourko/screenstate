@@ -1,0 +1,24 @@
+.screenstate-indicator {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background: #eff622;
+}
+
+@media (max-width: 1280px) {
+	.screenstate-indicator { background: #ebb561; }
+}
+@media (max-width: 1150px) {
+	.screenstate-indicator { background: #e874a0; }
+}
+@media (max-width: 977px) {
+	.screenstate-indicator { background: #e433df; }
+}
+@media (max-width: 767px) {
+	.screenstate-indicator { background: #5266ac; }
+}
+@media (max-width: 479px) {
+	.screenstate-indicator { background: #5e8f6d; }
+}

@@ -4,7 +4,7 @@ function ScreenStateManager() {}
 			if(this.screenState[i].containsX(window.innerWidth)) { return this.screenState[i]; }
 		}
 	}; 
-	ScreenStateManager.prototype.init = function() {
+	ScreenStateManager.prototype.init = function(_debug) {
 		this.screenState = [];
 		this.screenState.push(new ScreenState(1281, 65536));
 		this.screenState.push(new ScreenState(1151, 1280));
@@ -13,6 +13,9 @@ function ScreenStateManager() {}
 		this.screenState.push(new ScreenState(480, 767));
 		this.screenState.push(new ScreenState(0, 479));
 		this.lastScreenState = this.getCurrentScreenState();
+		
+		//Add a coloured indicator
+		if(_debug) { $("body").append('<div class="screenstate-indicator"/>'); }
 	}
 	ScreenStateManager.prototype.resize = function(_force) {
 		var currentScreenState = this.getCurrentScreenState();

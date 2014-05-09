@@ -2,8 +2,9 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>screenstate.js usage</title>
         <meta name="description" content="">
+		<link rel="stylesheet" type="text/css" href="screenstate.css"/>
     </head>
     <body>
 		<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
@@ -12,7 +13,7 @@
 			jQuery(function ($) {		
 				/*Setup some callbacks for each state*/
 				var screenStateManager = new ScreenStateManager();
-				screenStateManager.init();
+				screenStateManager.init(true);
 				window.addEventListener('resize', function() { screenStateManager.resize(); });
 				/*Setup screenstate callbacks for entering screenstate*/
 				screenStateManager.screenState[0].callbackEnter = function() { console.log("entered screen state 0"); };	//128 and higher
