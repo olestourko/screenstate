@@ -1,6 +1,13 @@
-	function ScreenStateManager() {
+	function ScreenStateManager(_debug) {
 		this.screenState = [];
 		this.debug = false;
+		
+		//Add a coloured indicator
+		if (_debug) { 
+			this.debug = true;
+			$("body").append('<div class="screenstate-indicator"/>');
+			this.indicator = $("body .screenstate-indicator");
+		}
 	}
 	ScreenState.prototype.defaultColor = '#ffffff';
 	ScreenStateManager.prototype.getCurrentScreenState = function() {
@@ -8,23 +15,17 @@
 			if(this.screenState[i].containsX(window.innerWidth)) { return this.screenState[i]; }
 		}
 	}
-	ScreenStateManager.prototype.init = function(_debug) {
-		this.lastScreenState = this.getCurrentScreenState();
-		//Add a coloured indicator
-		if (_debug) { 
-			this.debug = true;
-			$("body").append('<div class="screenstate-indicator"/>');
-			this.indicator = $("body .screenstate-indicator");
-			this.indicator.css("background-color", this.lastScreenState.color); 
-		}
-	}
 	//Add screenstate
 	/*	Todo: 
-		-prevent insertion of overlapping screenstates
+		-prevent insertion of overlapping screenstates (return false if they do)
 		-provide function for removing screenstate
 	*/
 	ScreenStateManager.prototype.add = function(_screenState) {
 		this.screenState.push(_screenState);
+		this.lastScreenState = this.getCurrentScreenState();
+		if(this.debug) {
+			this.indicator.css("background-color", this.lastScreenState.color); 
+		}
 		return true;
 	}
 	ScreenStateManager.prototype.resize = function(_force) {
