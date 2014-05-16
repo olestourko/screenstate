@@ -1,21 +1,31 @@
-function ScreenStateManager() {}
+	function ScreenStateManager() {
+		this.screenState = [];
+		this.debug = false;
+	}
+	ScreenState.prototype.defaultColor = '#ffffff';
 	ScreenStateManager.prototype.getCurrentScreenState = function() {
 		for(var i = 0; i < this.screenState.length; i++) {
 			if(this.screenState[i].containsX(window.innerWidth)) { return this.screenState[i]; }
 		}
-	}; 
+	}
 	ScreenStateManager.prototype.init = function(_debug) {
-		this.screenState = [];
-		this.screenState.push(new ScreenState(1281, 65536));
-		this.screenState.push(new ScreenState(1151, 1280));
-		this.screenState.push(new ScreenState(978, 1150));
-		this.screenState.push(new ScreenState(768, 977));
-		this.screenState.push(new ScreenState(480, 767));
-		this.screenState.push(new ScreenState(0, 479));
 		this.lastScreenState = this.getCurrentScreenState();
-		
 		//Add a coloured indicator
-		if(_debug) { $("body").append('<div class="screenstate-indicator"/>'); }
+		if (_debug) { 
+			this.debug = true;
+			$("body").append('<div class="screenstate-indicator"/>');
+			this.indicator = $("body .screenstate-indicator");
+			this.indicator.css("background-color", this.lastScreenState.color); 
+		}
+	}
+	//Add screenstate
+	/*	Todo: 
+		-prevent insertion of overlapping screenstates
+		-provide function for removing screenstate
+	*/
+	ScreenStateManager.prototype.add = function(_screenState) {
+		this.screenState.push(_screenState);
+		return true;
 	}
 	ScreenStateManager.prototype.resize = function(_force) {
 		var currentScreenState = this.getCurrentScreenState();
@@ -23,11 +33,18 @@ function ScreenStateManager() {}
 				this.lastScreenState.runCallbackExit();
 				currentScreenState.runCallbackEnter();
 				this.lastScreenState = currentScreenState;
+				//If debug is on, change indicator colors
+				if (this.debug) { 
+					if (currentScreenState.color != null) { this.indicator.css("background-color", currentScreenState.color); }
+					else { this.indicator.css("background-color", this.defaultColor); }
+				}
 		}
 	}
-	function ScreenState(_minwidth, _maxwidth) {
+	function ScreenState(_minwidth, _maxwidth, _color) {
 		this.minwidth = _minwidth;
 		this.maxwidth = _maxwidth;
+		//Todo: better validation for input color
+		if (_color != null && typeof(_color) == 'string') { this.color = _color; }
 	}
 	ScreenState.prototype.callbackEnter = null;
 	ScreenState.prototype.callbackExit = null;
