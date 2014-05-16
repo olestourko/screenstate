@@ -5,8 +5,8 @@
 		//Add a coloured indicator
 		if (_debug) { 
 			this.debug = true;
-			$("body").append('<div class="screenstate-indicator"/>');
-			this.indicator = $("body .screenstate-indicator");
+			jQuery("body").append('<div class="screenstate-indicator"/>');
+			this.indicator = jQuery("body .screenstate-indicator");
 		}
 	}
 	ScreenState.prototype.defaultColor = '#ffffff';
