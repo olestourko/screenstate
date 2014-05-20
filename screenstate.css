@@ -1,10 +1,10 @@
 .screenstate-indicator {
 	position: fixed;
-	top: 5px;
+	bottom: 5px;
 	left: 5px;
 	z-index: 10000;
 	padding: 2px 2px 2px 2em;
-	opacity: 0.5;
+	opacity: 0.8;
 	-webkit-transition: opacity 0.20s ease-in-out;
 	-moz-transition: opacity 0.20s ease-in-out;
 	-ms-transition: opacity 0.20s ease-in-out;
