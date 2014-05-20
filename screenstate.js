@@ -38,6 +38,7 @@
 				if (this.debug) { 
 					if (currentScreenState.color != null) { this.indicator.css("background-color", currentScreenState.color); }
 					else { this.indicator.css("background-color", this.defaultColor); }
+					this.indicator.html('<div>' + currentScreenState.minwidth + ' - ' + currentScreenState.maxwidth + '</div>');
 				}
 		}
 	}

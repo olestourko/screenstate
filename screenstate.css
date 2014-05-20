@@ -1,8 +1,13 @@
 .screenstate-indicator {
-	width: 20px;
-	height: 20px;
 	position: fixed;
-	top: 0px;
-	left: 0px;
+	top: 5px;
+	left: 5px;
 	z-index: 999;
+	padding: 2px 2px 2px 2em;
+}
+.screenstate-indicator div{
+	background-color: #ffffff;
+	display: inline-block;
+	padding: 5px 10px;
+	font-family: "Courier New", "sans-serif";
 }
