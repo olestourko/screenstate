@@ -4,7 +4,17 @@
 	left: 5px;
 	z-index: 10000;
 	padding: 2px 2px 2px 2em;
+	opacity: 0.5;
+	-webkit-transition: opacity 0.20s ease-in-out;
+	-moz-transition: opacity 0.20s ease-in-out;
+	-ms-transition: opacity 0.20s ease-in-out;
+	-o-transition: opacity 0.20s ease-in-out;
+	transition: opacity 0.20s ease-in-out;
 }
+.screenstate-indicator:hover { 
+	opacity: 1.0;
+}
+
 .screenstate-indicator div{
 	background-color: #ffffff;
 	display: inline-block;
