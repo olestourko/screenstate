@@ -24,7 +24,8 @@
 		this.screenState.push(_screenState);
 		this.lastScreenState = this.getCurrentScreenState();
 		if(this.debug && this.lastScreenState != null) {
-			this.indicator.css("background-color", this.lastScreenState.color); 
+			this.indicator.css("background-color", this.lastScreenState.color);
+			this.indicator.html('<div>' + this.lastScreenState.minwidth + ' - ' + this.lastScreenState.maxwidth + '</div>');
 		}
 		return true;
 	}
