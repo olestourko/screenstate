@@ -1,3 +1,7 @@
+	/******************************************************************/
+	/*ScreenState Manager                                             */
+	/******************************************************************/
+	
 	function ScreenStateManager(_debug) {
 		this.screenState = [];
 		this.debug = false;
@@ -26,6 +30,9 @@
 		this.updateIndicator(this.lastScreenState);
 		return true;
 	}
+	/*	ToDo:
+		- Create and dispatch custom events on a screen state change event. Either use events alongside callbacks, or replace the callbacks entirely.
+	*/
 	ScreenStateManager.prototype.resize = function(_force) {
 		var currentScreenState = this.getCurrentScreenState();
 			if(!(currentScreenState.equals(this.lastScreenState)) || _force) {
@@ -44,7 +51,10 @@
 		//Update inner markup
 		this.indicator.html('<div>' + _screenState.minwidth + ' - ' + _screenState.maxwidth + '</div>');
 	}
-	/*ScreenState objects*/
+	
+	/******************************************************************/
+	/*ScreenState objects                                             */
+	/******************************************************************/
 	function ScreenState(_minwidth, _maxwidth, _color) {
 		this.minwidth = _minwidth;
 		this.maxwidth = _maxwidth;
