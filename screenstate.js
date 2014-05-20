@@ -23,10 +23,7 @@
 	ScreenStateManager.prototype.add = function(_screenState) {
 		this.screenState.push(_screenState);
 		this.lastScreenState = this.getCurrentScreenState();
-		if(this.debug && this.lastScreenState != null) {
-			this.indicator.css("background-color", this.lastScreenState.color);
-			this.indicator.html('<div>' + this.lastScreenState.minwidth + ' - ' + this.lastScreenState.maxwidth + '</div>');
-		}
+		this.updateIndicator(this.lastScreenState);
 		return true;
 	}
 	ScreenStateManager.prototype.resize = function(_force) {
@@ -35,14 +32,19 @@
 				this.lastScreenState.runCallbackExit();
 				currentScreenState.runCallbackEnter();
 				this.lastScreenState = currentScreenState;
-				//If debug is on, change indicator colors
-				if (this.debug) { 
-					if (currentScreenState.color != null) { this.indicator.css("background-color", currentScreenState.color); }
-					else { this.indicator.css("background-color", this.defaultColor); }
-					this.indicator.html('<div>' + currentScreenState.minwidth + ' - ' + currentScreenState.maxwidth + '</div>');
-				}
+				if (this.debug) this.updateIndicator(currentScreenState);
 		}
 	}
+	
+	ScreenStateManager.prototype.updateIndicator = function(_screenState) {
+		if(_screenState == null) return;
+		//Update color
+		if (_screenState.color != null) { this.indicator.css("background-color", _screenState.color); }
+		else { this.indicator.css("background-color", this.defaultColor); }
+		//Update inner markup
+		this.indicator.html('<div>' + _screenState.minwidth + ' - ' + _screenState.maxwidth + '</div>');
+	}
+	/*ScreenState objects*/
 	function ScreenState(_minwidth, _maxwidth, _color) {
 		this.minwidth = _minwidth;
 		this.maxwidth = _maxwidth;
