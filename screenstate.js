@@ -23,7 +23,7 @@
 	ScreenStateManager.prototype.add = function(_screenState) {
 		this.screenState.push(_screenState);
 		this.lastScreenState = this.getCurrentScreenState();
-		if(this.debug) {
+		if(this.debug && this.lastScreenState != null) {
 			this.indicator.css("background-color", this.lastScreenState.color); 
 		}
 		return true;
