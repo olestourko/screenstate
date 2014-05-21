@@ -88,9 +88,4 @@
 	}
 	ScreenState.prototype.runCallbackExit = function() {
 		if(typeof(this.callbackExit) == "function") { this.callbackExit(); }
-	}
-	
-	/******************************************************************/
-	/*ScreenState change event                                        */
-	/******************************************************************/
-	
+	}	
