@@ -19,6 +19,7 @@
 				screenStateManager.add(new ScreenState(768, 977, '#ffff00'));
 				screenStateManager.add(new ScreenState(480, 767, '#ff00ff'));
 				screenStateManager.add(new ScreenState(0, 479, '#00ffff'));
+				screenStateManager.screenStateChangeCallback = function() { console.log("Screen State Changed"); } //A general callback for when screenstate changes
 				window.addEventListener('resize', function() { screenStateManager.resize(); });
 				
 				/*Setup screenstate callbacks for entering screenstate*/

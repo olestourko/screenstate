@@ -1,10 +1,15 @@
 	/******************************************************************/
 	/*ScreenState Manager                                             */
 	/******************************************************************/
+	/*Todo:
+		- create default "inbetween" screenstates from width=0 to highest
+		- allow more than one enter/exit callback per screenstate
+	*/
 	
 	function ScreenStateManager(_debug) {
 		this.screenState = [];
 		this.debug = false;
+		this.screenStateChangeCallback = null;
 		
 		//Add a coloured indicator
 		if (_debug) { 
@@ -36,9 +41,12 @@
 	ScreenStateManager.prototype.resize = function(_force) {
 		var currentScreenState = this.getCurrentScreenState();
 			if(!(currentScreenState.equals(this.lastScreenState)) || _force) {
+				if (this.screenStateChangeCallback != null) this.screenStateChangeCallback();
 				this.lastScreenState.runCallbackExit();
 				currentScreenState.runCallbackEnter();
 				this.lastScreenState = currentScreenState;
+				//Fire custom event
+				
 				if (this.debug) this.updateIndicator(currentScreenState);
 		}
 	}
@@ -81,3 +89,8 @@
 	ScreenState.prototype.runCallbackExit = function() {
 		if(typeof(this.callbackExit) == "function") { this.callbackExit(); }
 	}
+	
+	/******************************************************************/
+	/*ScreenState change event                                        */
+	/******************************************************************/
+	
