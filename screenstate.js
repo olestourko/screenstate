@@ -8,12 +8,10 @@
 	
 	function ScreenStateManager(_debug) {
 		this.screenState = [];
-		this.debug = false;
-		this.screenStateChangeCallback = null;
+		this.debug = _debug;
 		
 		//Add a coloured indicator
-		if (_debug) { 
-			this.debug = true;
+		if (this.debug) { 
 			jQuery("body").append('<div class="screenstate-indicator"/>');
 			this.indicator = jQuery("body .screenstate-indicator");
 		}
@@ -41,12 +39,10 @@
 	ScreenStateManager.prototype.resize = function(_force) {
 		var currentScreenState = this.getCurrentScreenState();
 			if(!(currentScreenState.equals(this.lastScreenState)) || _force) {
-				if (this.screenStateChangeCallback != null) this.screenStateChangeCallback();
 				this.lastScreenState.runCallbackExit();
 				currentScreenState.runCallbackEnter();
 				this.lastScreenState = currentScreenState;
 				//Fire custom event
-				
 				if (this.debug) this.updateIndicator(currentScreenState);
 		}
 	}
@@ -64,13 +60,28 @@
 	/*ScreenState objects                                             */
 	/******************************************************************/
 	function ScreenState(_minwidth, _maxwidth, _color) {
+		this.enterCallbacks = new Array();
+		this.exitCallbacks = new Array();
 		this.minwidth = _minwidth;
 		this.maxwidth = _maxwidth;
 		//Todo: better validation for input color
 		if (_color != null && typeof(_color) == 'string') { this.color = _color; }
 	}
-	ScreenState.prototype.callbackEnter = null;
-	ScreenState.prototype.callbackExit = null;
+
+	//ScreenState.prototype.enterCallbacks = new Array();
+	//ScreenState.prototype.exitCallbacks = new Array();
+	
+	ScreenState.prototype.addEnterCallback = function(_callback) {
+		if(typeof(_callback) == "function") {
+			this.enterCallbacks.push(_callback);
+		}
+	}
+	ScreenState.prototype.addExitCallback = function(_callback) {
+		if(typeof(_callback) == "function") { 
+			this.exitCallbacks.push(_callback); 
+		}
+	}
+	
 	ScreenState.prototype.containsX = function(_x) {
 		if(this.minwidth <= _x && this.maxwidth >= _x) return true;
 		return false;
@@ -84,8 +95,16 @@
 		return "minwidth: " + this.minwidth + ", maxwidth: " + this.maxwidth;
 	}
 	ScreenState.prototype.runCallbackEnter = function() {
-		if(typeof(this.callbackEnter) == "function") { this.callbackEnter(); }
+		for(var i = 0; i < this.enterCallbacks.length; i++) {
+			if(typeof(this.enterCallbacks[i]) == "function") { 
+				this.enterCallbacks[i]();
+			}
+		}
 	}
 	ScreenState.prototype.runCallbackExit = function() {
-		if(typeof(this.callbackExit) == "function") { this.callbackExit(); }
+		for(var i = 0; i < this.exitCallbacks.length; i++) {
+			if(typeof(this.exitCallbacks[i]) == "function") { 
+				this.exitCallbacks[i]();
+			}
+		}
 	}	
