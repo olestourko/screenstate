@@ -21,8 +21,10 @@ A tiny responsive breakpoint tool, including an indicator to keep track of your 
 			
 ####3: Setup callbacks for each screenstate
 	
-    screenStateManager.screenState[0].callbackEnter = function() { console.log("entered screen state 0"); };
-    screenStateManager.screenState[1].callbackEnter = function() { console.log("entered screen state 1"); };		
-    screenStateManager.screenState[0].callbackExit = function() { console.log("entered screen state 0"); };
-    screenStateManager.screenState[1].callbackExit= function() { console.log("entered screen state 1"); };
+	screenStateManager.screenState[0].addEnterCallback(function() { console.log("entered screen state 0 (callback #1)"); });
+	screenStateManager.screenState[0].addEnterCallback(function() { console.log("entered screen state 0 (callback #2)"); });
+	screenStateManager.screenState[1].addEnterCallback(function() { console.log("entered screen state 1 (callback #1)"); });	
+	
+    screenStateManager.screenState[0].addExitCallback(function() { console.log("exited screen state 0 (callback #1)"); });
+    screenStateManager.screenState[1].addExitCallback(function() { console.log("exited screen state 1 (callback #1)"); });
 			
