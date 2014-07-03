@@ -3,7 +3,6 @@
 	/******************************************************************/
 	/*Todo:
 		- create default "inbetween" screenstates from width=0 to highest
-		- allow more than one enter/exit callback per screenstate
 	*/
 	
 	function ScreenStateManager(_debug) {
@@ -24,14 +23,21 @@
 	}
 	//Add screenstate
 	/*	Todo: 
-		-prevent insertion of overlapping screenstates (return false if they do)
 		-provide function for removing screenstate
 	*/
 	ScreenStateManager.prototype.add = function(_screenState) {
+		if (this.overlapping(_screenState)) { return null; }
 		this.screenState.push(_screenState);
 		this.lastScreenState = this.getCurrentScreenState();
 		this.updateIndicator(this.lastScreenState);
-		return true;
+		return _screenState;
+	}
+	
+	ScreenStateManager.prototype.overlaps = function(_screenState) {
+		for(var i = 0; i < this.screenState.length; i++) {
+			if(this.screenState[i].containsX(_screenState.getMinWidth()) || this.screenState[i].containsX(_screenState.getMaxWidth())) { return true; }
+		}
+		return false;
 	}
 	/*	ToDo:
 		- Create and dispatch custom events on a screen state change event. Either use events alongside callbacks, or replace the callbacks entirely.
@@ -67,9 +73,6 @@
 		//Todo: better validation for input color
 		if (_color != null && typeof(_color) == 'string') { this.color = _color; }
 	}
-
-	//ScreenState.prototype.enterCallbacks = new Array();
-	//ScreenState.prototype.exitCallbacks = new Array();
 	
 	ScreenState.prototype.addEnterCallback = function(_callback) {
 		if(typeof(_callback) == "function") {
@@ -91,9 +94,14 @@
 		if (this.minwidth == _object.minwidth && this.maxwidth == _object.maxwidth) { return true; }
 		return false;
 	}
+	
+	ScreenState.prototype.getMaxWidth = function() { return this.maxwidth; }
+	ScreenState.prototype.getMinWidth = function() { return this.minwidth; }
+	
 	ScreenState.prototype.toString = function() {
 		return "minwidth: " + this.minwidth + ", maxwidth: " + this.maxwidth;
 	}
+	
 	ScreenState.prototype.runCallbackEnter = function() {
 		for(var i = 0; i < this.enterCallbacks.length; i++) {
 			if(typeof(this.enterCallbacks[i]) == "function") { 
@@ -107,4 +115,4 @@
 				this.exitCallbacks[i]();
 			}
 		}
-	}	
+	}
