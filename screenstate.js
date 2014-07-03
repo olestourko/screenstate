@@ -26,10 +26,10 @@
 		-provide function for removing screenstate
 	*/
 	ScreenStateManager.prototype.add = function(_screenState) {
-		if (this.overlapping(_screenState)) { return null; }
+		if (this.overlaps(_screenState)) { return null; }
 		this.screenState.push(_screenState);
 		this.lastScreenState = this.getCurrentScreenState();
-		this.updateIndicator(this.lastScreenState);
+		if (this.debug) { this.updateIndicator(this.lastScreenState); }
 		return _screenState;
 	}
 	
