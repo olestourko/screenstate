@@ -1,7 +1,7 @@
 #screenstate.js
 
 A tiny responsive breakpoint tool, including an indicator to keep track of your current screen state for debugging.
-
+[Example](http://olestourko.ca/screenstate/example.html)
 
 ####1: Include jquery, screenstate.js, screenstate.css
 
