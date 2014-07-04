@@ -1,16 +1,16 @@
 	/******************************************************************/
+	/*screenstate.js version 0.9.1                                    */
+	/******************************************************************/
+	
+	
+	/******************************************************************/
 	/*ScreenState Manager                                             */
 	/******************************************************************/
-	/*Todo:
-		- create default "inbetween" screenstates from width=0 to highest
-	*/
-	
 	function ScreenStateManager(_debug) {
 		this.screenState = [];
-		this.debug = _debug;
 		
 		//Add a coloured indicator
-		if (this.debug) { 
+		if (_debug) { 
 			jQuery("body").append('<div class="screenstate-indicator"/>');
 			this.indicator = jQuery("body .screenstate-indicator");
 		}
@@ -29,7 +29,7 @@
 		if (this.overlaps(_screenState)) { return null; }
 		this.screenState.push(_screenState);
 		this.lastScreenState = this.getCurrentScreenState();
-		if (this.debug) { this.updateIndicator(this.lastScreenState); }
+		this.updateIndicator(this.lastScreenState);
 		return _screenState;
 	}
 	
@@ -44,19 +44,20 @@
 	*/
 	ScreenStateManager.prototype.resize = function(_force) {
 		var currentScreenState = this.getCurrentScreenState();
+			if(!currentScreenState || !this.lastScreenState) { return; }
 			if(!(currentScreenState.equals(this.lastScreenState)) || _force) {
 				this.lastScreenState.runCallbackExit();
 				currentScreenState.runCallbackEnter();
 				this.lastScreenState = currentScreenState;
-				//Fire custom event
-				if (this.debug) this.updateIndicator(currentScreenState);
+				this.updateIndicator(currentScreenState);
 		}
 	}
 	
 	ScreenStateManager.prototype.updateIndicator = function(_screenState) {
-		if(_screenState == null) return;
+		if (!this.indicator) return;
+		if (_screenState == null) return;
 		//Update color
-		if (_screenState.color != null) { this.indicator.css("background-color", _screenState.color); }
+		if(_screenState.color != null) { this.indicator.css("background-color", _screenState.color); }
 		else { this.indicator.css("background-color", this.defaultColor); }
 		//Update inner markup
 		this.indicator.html('<div>' + _screenState.minwidth + ' - ' + _screenState.maxwidth + '</div>');

@@ -12,31 +12,35 @@
 		<script type="text/javascript">
 			jQuery(function ($) {		
 				/*Setup some callbacks for each state*/
-				var screenStateManager = new ScreenStateManager(false);
-				screenStateManager.add(new ScreenState(1281, 65536, '#ff0000'));				
-				screenStateManager.add(new ScreenState(1151, 1280, '#00ff00'));
-				screenStateManager.add(new ScreenState(978, 1150, '#0000ff'));
-				screenStateManager.add(new ScreenState(768, 977, '#ffff00'));
-				screenStateManager.add(new ScreenState(480, 767, '#ff00ff'));
-				screenStateManager.add(new ScreenState(0, 479, '#00ffff'));
-				screenStateManager.screenStateChangeCallback = function() { console.log("Screen State Changed"); } //A general callback for when screenstate changes
-				window.addEventListener('resize', function() { screenStateManager.resize(); });
+				var screenStateManager = new ScreenStateManager(true);		
+				var desktop = screenStateManager.add(new ScreenState(768, 65536, '#ff4400'));
+				var tablet = screenStateManager.add(new ScreenState(480, 767, '#00ff44'));
+				var phone = screenStateManager.add(new ScreenState(0, 479, '#4400ff'));
 				
-				/*Setup screenstate callbacks for entering screenstate*/
-				screenStateManager.screenState[0].addEnterCallback(function() { console.log("entered screen state 0"); });	//128 and higher
-				screenStateManager.screenState[1].addEnterCallback(function() { console.log("entered screen state 1"); });	//1151 to 1280
-				screenStateManager.screenState[2].addEnterCallback(function() { console.log("entered screen state 2"); });	//978 to 1150
-				screenStateManager.screenState[3].addEnterCallback(function() { console.log("entered screen state 3"); });	//768 to 977
-				screenStateManager.screenState[4].addEnterCallback(function() { console.log("entered screen state 4"); });	//480 to 767
-				screenStateManager.screenState[5].addEnterCallback(function() { console.log("entered screen state 5"); });	//479 and lower
-				/*Setup screenstate callbacks for exiting screenstate*/
-				screenStateManager.screenState[0].addExitCallback(function() { console.log("exited screen state 0"); });	//128 and higher
-				screenStateManager.screenState[1].addExitCallback(function() { console.log("exited screen state 1"); });	//1151 to 1280
-				screenStateManager.screenState[2].addExitCallback(function() { console.log("exited screen state 2"); });	//978 to 1150
-				screenStateManager.screenState[3].addExitCallback(function() { console.log("exited screen state 3"); });	//768 to 977
-				screenStateManager.screenState[4].addExitCallback(function() { console.log("exited screen state 4"); });	//480 to 767
-				screenStateManager.screenState[5].addExitCallback(function() { console.log("exited screen state 5"); });	//479 and lower
-				screenStateManager.resize(true);
+				screenStateManager.screenStateChangeCallback = function() { console.log("Screen State Changed"); } //A general callback for when 
+				
+				desktop.addEnterCallback(function() { 
+					console.log("Entered: Desktop Screen"); 
+				});
+				tablet.addEnterCallback(function() { 
+					console.log("Entered: Tablet Screen"); 
+				});
+				phone.addEnterCallback(function() { 
+					console.log("Entered: Phone Screen"); 
+				});
+				
+				desktop.addExitCallback(function() { 
+					console.log("Exited: Desktop Screen"); 
+				});
+				tablet.addExitCallback(function() { 
+					console.log("Exited: Tablet Screen"); 
+				});
+				phone.addExitCallback(function() { 
+					console.log("Exited: Phone Screen"); 
+				});
+				
+				window.addEventListener('resize', function() { screenStateManager.resize(); });
+				screenStateManager.resize(true); //Use this to force a refresh
 			});
 		</script>
     </body>
