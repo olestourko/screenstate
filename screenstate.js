@@ -8,8 +8,6 @@
 	/******************************************************************/
 	function ScreenStateManager(_debug) {
 		this.screenState = [];
-		
-		//Add a coloured indicator
 		if (_debug) { 
 			jQuery("body").append('<div class="screenstate-indicator"/>');
 			this.indicator = jQuery("body .screenstate-indicator");
@@ -21,10 +19,6 @@
 			if(this.screenState[i].containsX(window.innerWidth)) { return this.screenState[i]; }
 		}
 	}
-	//Add screenstate
-	/*	Todo: 
-		-provide function for removing screenstate
-	*/
 	ScreenStateManager.prototype.add = function(_screenState) {
 		if (this.overlaps(_screenState)) { return null; }
 		this.screenState.push(_screenState);
@@ -38,8 +32,8 @@
 		}
 		return false;
 	}
-	/*	ToDo:
-		- Create and dispatch custom events on a screen state change event. Either use events alongside callbacks, or replace the callbacks entirely.
+	/*	Todo:
+	*	- Create and dispatch custom events on a screen state change event. Either use events alongside callbacks, or replace the callbacks entirely.
 	*/
 	ScreenStateManager.prototype.resize = function(_force) {
 		var currentScreenState = this.getCurrentScreenState();
@@ -69,10 +63,8 @@
 		this.exitCallbacks = new Array();
 		this.minwidth = _minwidth;
 		this.maxwidth = _maxwidth;
-		//Todo: better validation for input color
 		if (_color != null && typeof(_color) == 'string') { this.color = _color; }
 	}
-	
 	ScreenState.prototype.addEnterCallback = function(_callback) {
 		if(typeof(_callback) == "function") {
 			this.enterCallbacks.push(_callback);
@@ -92,10 +84,8 @@
 		if (this.minwidth == _object.minwidth && this.maxwidth == _object.maxwidth) { return true; }
 		return false;
 	}
-	
 	ScreenState.prototype.getMaxWidth = function() { return this.maxwidth; }
 	ScreenState.prototype.getMinWidth = function() { return this.minwidth; }
-	
 	ScreenState.prototype.toString = function() {
 		return "minwidth: " + this.minwidth + ", maxwidth: " + this.maxwidth;
 	}
