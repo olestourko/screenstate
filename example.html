@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>screenstate.js usage</title>
+        <meta name="description" content="">
+		<link rel="stylesheet" type="text/css" href="screenstate.css"/>
+		<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="screenstate.js"></script>
+    </head>
+    <body>
+		<script type="text/javascript">
+			jQuery(function ($) {		
+				/*Setup some callbacks for each state*/
+				var screenStateManager = new ScreenStateManager(true);		
+				var desktop = screenStateManager.add(new ScreenState(768, 65536, '#ff4400'));
+				var tablet = screenStateManager.add(new ScreenState(480, 767, '#00ff44'));
+				var phone = screenStateManager.add(new ScreenState(0, 479, '#4400ff'));
+				
+				screenStateManager.screenStateChangeCallback = function() { console.log("Screen State Changed"); }
+				
+				desktop.addEnterCallback(function() { 
+					console.log("Entered: Desktop Screen"); 
+					
+					var contentEl = jQuery('#content');
+					var leftEl = jQuery('#left');
+					
+					var topEl = jQuery('#top');
+					var middleEl = jQuery('#middle');
+					var bottomEl = jQuery('#bottom');
+					
+					//Build layout
+					jQuery(leftEl).html('')
+						.append(topEl)
+						.append(bottomEl)
+					jQuery(contentEl).html('')
+						.append(middleEl);
+				});
+				tablet.addEnterCallback(function() { 
+					console.log("Entered: Tablet Screen");
+					
+					var contentEl = jQuery('#content');
+					var leftEl = jQuery('#left');
+					
+					var topEl = jQuery('#top');
+					var middleEl = jQuery('#middle');
+					var bottomEl = jQuery('#bottom');
+					
+					//Build layout
+					jQuery(leftEl).html('');
+					jQuery(contentEl).html('')
+						.append(topEl)
+						.append(middleEl)
+						.append(bottomEl);
+					
+				});
+				phone.addEnterCallback(function() { 
+					console.log("Entered: Phone Screen"); 
+					
+					var contentEl = jQuery('#content');
+					var leftEl = jQuery('#left');
+					
+					var topEl = jQuery('#top');
+					var middleEl = jQuery('#middle');
+					var bottomEl = jQuery('#bottom');
+					
+					//Build layout
+					jQuery(leftEl).html('');
+					jQuery(contentEl).html('')
+						.append(bottomEl)
+						.append(middleEl)
+						.append(topEl);
+				});
+				
+					
+				window.addEventListener('resize', function() { screenStateManager.resize(); });
+				screenStateManager.resize(true); //Use this to force a refresh
+			});
+		</script>
+		
+		<style type="text/css">
+		
+			#page {
+				width: 760px;
+				margin: auto;
+			}
+		
+			#left {
+				width: 296px;
+				display: inline-block;
+				box-sizing: border-box;
+			}
+			#content {
+				width: 460px;
+				display: inline-block;
+				vertical-align: top;
+				box-sizing: border-box;
+			}
+
+			#top {
+				border: 2px solid red;
+				background: #ffe0e0;
+				margin: 10px;
+				padding: 20px;
+			}
+			#middle {
+				border: 2px solid green;
+				background: #e0ffe0;
+				margin: 10px;
+				padding: 20px;
+			}
+			#bottom {
+				border: 2px solid blue;
+				background: #e0e0ff;
+				margin: 10px;
+				padding: 20px;
+			}
+			h2 { margin-top: 0px; }
+			
+			@media only screen and (max-width: 767px) {
+				#page {
+					width: 460px
+				}
+				#left {
+					display: none;
+				}
+				#content {
+					width: 100%;
+				}
+			}
+					
+			@media only screen and (max-width: 479px) {
+				#page {
+					width: 100%
+				}
+			}
+					
+		</style>
+		<div id="page">
+			<div id="left">
+				<div id="top"/>
+					<h2>Top Content</h2>
+					назва реалізації стандарту мови програмування ECMAScript компанії Netscape, базується на принципах прототипного програмування. Найпоширеніше і найвідоміше застосування мови — написання сценаріїв для веб-сторінок, але, також, використовується для впровадження сценаріїв керування об’єктами вбудованими в інші програми.
+				</div>
+				<div id="bottom"/>
+					<h2>Bottom Content</h2>
+					JavaScript розроблений у компанії Netscape. На сьогоднішній день підтримується більшістю браузерів.
+				</div>
+			</div>
+			
+			<div id="content">
+				<div id="middle"/>
+					<h2>Middle Content</h2>
+					При розробці великих і нетривіальних веб-застосунків з використанням JavaScript, критично важливим є доступ до інструментів зневадження. Оскільки браузери від різних виробників дещо відрізняються у поведінці JavaScript і реалізації Об'єктної Моделі Документа, треба мати в руках зневаджувач для кожного браузера, якщо веб-застосування орієнтовано на нього.<br/><br/>
+					На даний час Internet Explorer, Firefox, Opera, Google Chrome та Safari мають зневаджувачі для себе.<br/><br/>
+					Internet Explorer має три звеваджувача для себе: Microsoft Visual Studio є найпотужнішим з цих трьох, слідом йде Microsoft Script Editor (компонента Microsoft Office[4]), і нарешті існує безплатний Microsoft Script Debugger з базовими функціями. Веб-застосування для Firefox допоможе привести до розуму додаток Firebug (зручно вбудований безпосередньо в браузер), або давніший відладчик Venkman, котрий також працює з браузером Mozilla. Drosera — це зневаджувач з WebKit engine[5], що супроводжує Apple Safari.
+				</div>
+			<div>
+		</div>
+		
+    </body>
+</html>
