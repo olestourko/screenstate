@@ -32,7 +32,6 @@
 		this.updateIndicator(this.lastScreenState);
 		return _screenState;
 	}
-	
 	ScreenStateManager.prototype.overlaps = function(_screenState) {
 		for(var i = 0; i < this.screenState.length; i++) {
 			if(this.screenState[i].containsX(_screenState.getMinWidth()) || this.screenState[i].containsX(_screenState.getMaxWidth())) { return true; }
@@ -52,7 +51,6 @@
 				this.updateIndicator(currentScreenState);
 		}
 	}
-	
 	ScreenStateManager.prototype.updateIndicator = function(_screenState) {
 		if (!this.indicator) return;
 		if (_screenState == null) return;
@@ -85,7 +83,6 @@
 			this.exitCallbacks.push(_callback); 
 		}
 	}
-	
 	ScreenState.prototype.containsX = function(_x) {
 		if(this.minwidth <= _x && this.maxwidth >= _x) return true;
 		return false;
@@ -102,7 +99,6 @@
 	ScreenState.prototype.toString = function() {
 		return "minwidth: " + this.minwidth + ", maxwidth: " + this.maxwidth;
 	}
-	
 	ScreenState.prototype.runCallbackEnter = function() {
 		for(var i = 0; i < this.enterCallbacks.length; i++) {
 			if(typeof(this.enterCallbacks[i]) == "function") { 

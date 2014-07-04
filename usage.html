@@ -17,7 +17,7 @@
 				var tablet = screenStateManager.add(new ScreenState(480, 767, '#00ff44'));
 				var phone = screenStateManager.add(new ScreenState(0, 479, '#4400ff'));
 				
-				screenStateManager.screenStateChangeCallback = function() { console.log("Screen State Changed"); } //A general callback for when 
+				screenStateManager.screenStateChangeCallback = function() { console.log("Screen State Changed"); }
 				
 				desktop.addEnterCallback(function() { 
 					console.log("Entered: Desktop Screen"); 
