@@ -9,8 +9,9 @@
 	function ScreenStateManager(_debug) {
 		this.screenState = [];
 		if (_debug) { 
-			jQuery("body").append('<div class="screenstate-indicator"/>');
-			this.indicator = jQuery("body .screenstate-indicator");
+			var body = jQuery("body");
+			body.append('<div class="screenstate-indicator"/>');
+			this.indicator = body.find(".screenstate-indicator");
 		}
 	}
 	ScreenState.prototype.defaultColor = '#ffffff';
