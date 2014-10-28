@@ -35,13 +35,12 @@
 		}
 		return false;
 	}
-	/*	Todo:
-	*	- Create and dispatch custom events on a screen state change event. Either use events alongside callbacks, or replace the callbacks entirely.
-	*/
 	ScreenStateManager.prototype.resize = function(_force) {
 		var currentScreenState = this.getCurrentScreenState();
 			if(!currentScreenState || !this.lastScreenState) { return; }
-			if(!(currentScreenState.equals(this.lastScreenState)) || _force) {
+			if(!(currentScreenState.equals(this.lastScreenState)) || _force) {	
+				jQuery(window).trigger('screenstate_exit', [this.lastScreenState]);
+				jQuery(window).trigger('screenstate_enter', [currentScreenState]);
 				this.lastScreenState.runCallbackExit();
 				currentScreenState.runCallbackEnter();
 				this.lastScreenState = currentScreenState;
@@ -105,4 +104,7 @@
 				this.exitCallbacks[i]();
 			}
 		}
+	}
+	ScreenState.prototype.toString = function() {
+		return this.minwidth + " to " + this.maxwidth;
 	}

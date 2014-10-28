@@ -7,7 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="screenstate.css"/>
     </head>
     <body>
-		<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="screenstate.js"></script>
 		<script type="text/javascript">
 			jQuery(function ($) {		
@@ -41,6 +41,10 @@
 				
 				window.addEventListener('resize', function() { screenStateManager.resize(); });
 				screenStateManager.resize(true); //Use this to force a refresh
+						
+				jQuery(window).on('screenstate_enter', function(e, screenState) {
+					console.log('Entered screenstate: ' + screenState.toString());
+				});
 			});
 		</script>
     </body>
