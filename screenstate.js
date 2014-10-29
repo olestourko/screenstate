@@ -18,9 +18,10 @@
 	}
 	
 	ScreenStateManager.prototype = {
+		container: jQuery('html'),
 		getCurrentScreenState: function() {
 			for(var i = 0; i < this.screenState.length; i++) {
-				if(this.screenState[i].containsX(window.innerWidth)) { return this.screenState[i]; }
+				if(this.screenState[i].containsX(this.container.width())) { return this.screenState[i]; }
 			}
 		},
 		add: function(_screenState) {
