@@ -1,5 +1,5 @@
 	/**
-	 * screenstate.js version 0.9.1
+	 * screenstate.js version 0.9.2
 	 *
 	 * @author Oles Tourko
 	 */
