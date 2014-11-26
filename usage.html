@@ -13,12 +13,10 @@
 			jQuery(function ($) {		
 				/*Setup some callbacks for each state*/
 				var screenStateManager = new ScreenStateManager(true);		
-				var desktop = screenStateManager.add(new ScreenState(768, 65536, '#ff4400'));
-				var tablet = screenStateManager.add(new ScreenState(480, 767, '#00ff44'));
-				var phone = screenStateManager.add(new ScreenState(0, 479, '#4400ff'));
-				
-				screenStateManager.screenStateChangeCallback = function() { console.log("Screen State Changed"); }
-				
+				var desktop = screenStateManager.add(new ScreenState(768, 65536, '#ff4400', 'Desktop'));
+				var tablet = screenStateManager.add(new ScreenState(480, 767, '#00ff44', 'Tablet'));
+				var phone = screenStateManager.add(new ScreenState(0, 479, '#4400ff', 'Phone'));
+								
 				desktop.addEnterCallback(function() { 
 					console.log("Entered: Desktop Screen"); 
 				});
@@ -45,6 +43,7 @@
 				jQuery(window).on('screenstate_enter', function(e, screenState) {
 					console.log('Entered screenstate: ' + screenState.toString());
 				});
+				
 			});
 		</script>
     </body>
