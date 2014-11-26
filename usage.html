@@ -37,6 +37,9 @@
 					console.log("Exited: Phone Screen"); 
 				});
 				
+				//Test getting a screenstate
+				console.log(screenStateManager.getScreenState('Desktop').toString());
+				
 				window.addEventListener('resize', function() { screenStateManager.resize(); });
 				screenStateManager.resize(true); //Use this to force a refresh
 						

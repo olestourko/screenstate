@@ -1,9 +1,6 @@
 	/**
-	 * screenstate.js version 0.9.2
-	 *
 	 * @author Oles Tourko
 	 */
-	
 	
 	/******************************************************************/
 	/*ScreenState Manager                                             */
@@ -57,13 +54,20 @@
 			else { this.indicator.css("background-color", this.defaultColor); }
 			//Update inner markup
 			this.indicator.html('<div>' + _screenState.minwidth + ' - ' + _screenState.maxwidth + '</div>');
-		}		
+		},
+		//TODO: Replace the array loop with a hashmap
+		getScreenState: function(_name) {
+			for(var i = 0; i <this.screenState.length; i++) {
+				if(this.screenState[i].name == _name) { return this.screenState[i]; }
+			}
+			return null;
+		}
 	}
 	
 	/******************************************************************/
 	/*ScreenState objects                                             */
 	/******************************************************************/
-	function ScreenState(_minwidth, _maxwidth, _color, _name = '') {
+	function ScreenState(_minwidth, _maxwidth, _color, _name) {
 		this.enterCallbacks = new Array();
 		this.exitCallbacks = new Array();
 		this.minwidth = _minwidth;
