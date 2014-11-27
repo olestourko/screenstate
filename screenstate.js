@@ -53,7 +53,7 @@
 			if(_screenState.color != null) { this.indicator.css("background-color", _screenState.color); }
 			else { this.indicator.css("background-color", this.defaultColor); }
 			//Update inner markup
-			this.indicator.html('<div>' + _screenState.minwidth + ' - ' + _screenState.maxwidth + '</div>');
+			this.indicator.html('<div>' + _screenState.toString() + '</div>');
 		},
 		//TODO: Replace the array loop with a hashmap
 		getScreenState: function(_name) {
@@ -106,7 +106,7 @@
 		toString: function() {
 			var output = "";
 			if(this.name.length > 0) { output += this.name + ": "; } 
-			return output + "minwidth: " + this.minwidth + ", maxwidth: " + this.maxwidth;
+			return output + this.minwidth + " - " + this.maxwidth;
 		},
 		runCallbackEnter: function() {
 			for(var i = 0; i < this.enterCallbacks.length; i++) {
