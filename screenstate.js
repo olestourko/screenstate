@@ -7,10 +7,10 @@
 	/******************************************************************/
 	function ScreenStateManager(_debug) {
 		this.screenState = [];
-		if (_debug) { 
-			var body = jQuery("body");
-			body.append('<div class="screenstate-indicator"/>');
-			this.indicator = body.find(".screenstate-indicator");
+		if (_debug) {
+			this.indicator = document.createElement("div");
+			this.indicator.className = "screenstate-indicator";
+			document.body.appendChild(this.indicator);
 		}
 	}
 	
@@ -50,10 +50,14 @@
 			if (!this.indicator) return;
 			if (_screenState == null) return;
 			//Update color
-			if(_screenState.color != null) { this.indicator.css("background-color", _screenState.color); }
-			else { this.indicator.css("background-color", this.defaultColor); }
+			if(_screenState.color != null) { 
+				this.indicator.style.backgroundColor = _screenState.color;
+			}
+			else {
+				this.indicator.style.backgroundColor = this.defaultColor;
+			}
 			//Update inner markup
-			this.indicator.html('<div>' + _screenState.toString() + '</div>');
+			this.indicator.innerHtml = '<div>' + _screenState.toString() + '</div>';
 		},
 		//TODO: Replace the array loop with a hashmap
 		getScreenState: function(_name) {
