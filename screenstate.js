@@ -57,7 +57,7 @@
 				this.indicator.style.backgroundColor = this.defaultColor;
 			}
 			//Update inner markup
-			this.indicator.innerHtml = '<div>' + _screenState.toString() + '</div>';
+			this.indicator.innerHTML = '<div>' + _screenState.toString() + '</div>';
 		},
 		//TODO: Replace the array loop with a hashmap
 		getScreenState: function(_name) {
