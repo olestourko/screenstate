@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>screenstate.js usage</title>
+        <meta name="description" content="">
+		<link rel="stylesheet" type="text/css" href="screenstate.css"/>
+    </head>
+    <body>
+		<script type="text/javascript" src="screenstate.js"></script>
+		<script type="text/javascript">
+			/*Setup some callbacks for each state*/
+			var screenStateManager = new ScreenStateManager(true);		
+			var desktop = screenStateManager.add(new ScreenState(768, 65536, '#ff4400', 'Desktop'));
+			var tablet = screenStateManager.add(new ScreenState(480, 767, '#00ff44', 'Tablet'));
+			var phone = screenStateManager.add(new ScreenState(0, 479, '#4400ff', 'Phone'));
+			
+			desktop.addEnterCallback(function() { 
+				console.log("Entered: Desktop Screen"); 
+			});
+			tablet.addEnterCallback(function() { 
+				console.log("Entered: Tablet Screen"); 
+			});
+			phone.addEnterCallback(function() { 
+				console.log("Entered: Phone Screen"); 
+			});
+			
+			desktop.addExitCallback(function() { 
+				console.log("Exited: Desktop Screen"); 
+			});
+			tablet.addExitCallback(function() { 
+				console.log("Exited: Tablet Screen"); 
+			});
+			phone.addExitCallback(function() { 
+				console.log("Exited: Phone Screen"); 
+			});
+				
+			//Test getting a screenstate
+			console.log(screenStateManager.getScreenState('Desktop').toString());
+			
+			window.addEventListener('resize', function() { screenStateManager.resize(); });
+			screenStateManager.resize(true); //Use this to force a refresh
+		</script>
+    </body>
+</html>

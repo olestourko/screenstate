@@ -38,8 +38,12 @@
 			var currentScreenState = this.getCurrentScreenState();
 			if(!currentScreenState || !this.lastScreenState) { return; }
 			if(!(currentScreenState.equals(this.lastScreenState)) || _force) {
-				jQuery(window).trigger('screenstate_exit', [this.lastScreenState]);
-				jQuery(window).trigger('screenstate_enter', [currentScreenState]);
+				
+				if(typeof jQuery !== "undefined") {
+					jQuery(window).trigger('screenstate_exit', [this.lastScreenState]);
+					jQuery(window).trigger('screenstate_enter', [currentScreenState]);
+				}
+				
 				this.lastScreenState.runCallbackExit();
 				currentScreenState.runCallbackEnter();
 				this.lastScreenState = currentScreenState;
