@@ -12,6 +12,10 @@
 			this.indicator.className = "screenstate-indicator";
 			document.body.appendChild(this.indicator);
 		}
+		var _this = this;
+		window.addEventListener('resize', function() {
+			_this.resize(false, _this);
+		});
 	}
 	
 	ScreenStateManager.prototype = {
@@ -34,20 +38,23 @@
 			}
 			return false;
 		},
-		resize: function(_force) {
-			var currentScreenState = this.getCurrentScreenState();
-			if(!currentScreenState || !this.lastScreenState) { return; }
-			if(!(currentScreenState.equals(this.lastScreenState)) || _force) {
+		resize: function(_force, _this) {
+			if(!_this) {
+				_this = this;
+			}		
+			var currentScreenState = _this.getCurrentScreenState();
+			if(!currentScreenState || !_this.lastScreenState) { return; }
+			if(!(currentScreenState.equals(_this.lastScreenState)) || _force) {
 				
 				if(typeof jQuery !== "undefined") {
-					jQuery(window).trigger('screenstate_exit', [this.lastScreenState]);
+					jQuery(window).trigger('screenstate_exit', [_this.lastScreenState]);
 					jQuery(window).trigger('screenstate_enter', [currentScreenState]);
 				}
 				
-				this.lastScreenState.runCallbackExit();
+				_this.lastScreenState.runCallbackExit();
 				currentScreenState.runCallbackEnter();
-				this.lastScreenState = currentScreenState;
-				this.updateIndicator(currentScreenState);
+				_this.lastScreenState = currentScreenState;
+				_this.updateIndicator(currentScreenState);
 			}
 		},
 		updateIndicator: function(_screenState) {
