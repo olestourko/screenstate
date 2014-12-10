@@ -82,13 +82,14 @@
 	/******************************************************************/
 	/*ScreenState objects                                             */
 	/******************************************************************/
-	function ScreenState(_minwidth, _maxwidth, _color, _name) {
+	//function ScreenState(_minwidth, _maxwidth, _color, _name) {
+	function ScreenState(params) {
 		this.enterCallbacks = new Array();
 		this.exitCallbacks = new Array();
-		this.minwidth = _minwidth;
-		this.maxwidth = _maxwidth;
-		this.name = _name;
-		if (_color != null && typeof(_color) == 'string') { this.color = _color; }
+		this.minwidth = params["minWidth"];
+		this.maxwidth = params["maxWidth"];
+		this.name = params["name"];
+		this.color = params["color"];
 	}
 	
 	ScreenState.prototype = {

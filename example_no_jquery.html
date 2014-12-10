@@ -11,9 +11,30 @@
 		<script type="text/javascript">
 			/*Setup some callbacks for each state*/
 			var screenStateManager = new ScreenStateManager(true);		
-			var desktop = screenStateManager.add(new ScreenState(768, 65536, '#ff4400', 'Desktop'));
-			var tablet = screenStateManager.add(new ScreenState(480, 767, '#00ff44', 'Tablet'));
-			var phone = screenStateManager.add(new ScreenState(0, 479, '#4400ff', 'Phone'));
+			var desktop = screenStateManager.add(new ScreenState(
+				{
+					minWidth: 768, 
+					maxWidth: 65536, 
+					color: '#ff4400',
+					name: 'Desktop'
+				}
+			));		
+			var tablet = screenStateManager.add(new ScreenState(
+				{
+					minWidth: 480, 
+					maxWidth: 767, 
+					color: '#00ff44',
+					name: 'Tablet'
+				}
+			));
+			var phone = screenStateManager.add(new ScreenState(
+				{
+					minWidth: 0, 
+					maxWidth: 479, 
+					color: '#4400ff',
+					name: 'Phone'
+				}
+			));
 			
 			desktop.addEnterCallback(function() { 
 				console.log("Entered: Desktop Screen"); 
