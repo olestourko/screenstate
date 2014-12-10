@@ -16,6 +16,8 @@
 		window.addEventListener('resize', function() {
 			_this.resize(false, _this);
 		});
+		this.unusedColors = this.generateColors();
+		console.log(this.unusedColors);
 	}
 	
 	ScreenStateManager.prototype = {
@@ -28,6 +30,11 @@
 		add: function(_screenState) {
 			if (this.overlaps(_screenState)) { return null; }
 			this.screenState.push(_screenState);
+			//Assign a color to the screenState if it has none set
+			if(_screenState.color == null) {
+				_screenState.color = this.unusedColors.shift();
+			}
+			
 			this.lastScreenState = this.getCurrentScreenState();
 			this.updateIndicator(this.lastScreenState);
 			return _screenState;
@@ -76,6 +83,31 @@
 				if(this.screenState[i].name == _name) { return this.screenState[i]; }
 			}
 			return null;
+		},
+		generateColors: function() {
+			var getPermutations = function(a, b, length) {
+				var permutations = [];
+				if(length > 2) {
+					var recursivePermutations = getPermutations(a, b, length - 1);
+					for(var i = 0; i < recursivePermutations.length; i++) {
+						permutations.push(a + recursivePermutations[i]);
+						permutations.push(b + recursivePermutations[i]);
+					}					
+				} else {
+					permutations.push(a + a);
+					permutations.push(a + b);
+					permutations.push(b + a);
+					permutations.push(b + b);					
+				}
+				return permutations;
+			}	
+			var colors = getPermutations('f', '0', 3).slice(1, -1);
+			colors = colors.concat(getPermutations('f', '4', 3).slice(1, -1))
+			for(var i = 0; i < colors.length; i++) {
+				colors[i] = '#' + colors[i];
+			}
+			
+			return colors.sort(function(a, b) { return a - b; });
 		}
 	}
 	

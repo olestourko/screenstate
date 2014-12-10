@@ -18,14 +18,17 @@ Optional: jQuery (for events)
 ###Initialize Screenstate Manager and add ScreenStates
 	
 Ranges of screen resolutions are represented with the ScreenState object. For example, screens between 480px to 800px are represented by a ScreenState object with ``minWidth`` of 480 and ``maxWidth`` of 800.
-The ScreenState constructor takes a parameter array with the folowing options: ``minWidth``, ``maxWidth``, ``debugColor``, ``name``
+The ScreenState constructor takes a parameter array with the folowing options: 
+``minWidth``  
+``maxWidth``   
+``name``  
+``debugColor`` *(optional, a color will be automatically chosen if not set)*
 	
 	var sSM = new ScreenStateManager(true);		
 	var desktop = screenStateManager.add(new ScreenState(
 		{
 			minWidth: 768, 
 			maxWidth: 65536, 
-			color: '#ff4400',
 			name: 'Desktop'
 		}
 	));		
@@ -33,7 +36,6 @@ The ScreenState constructor takes a parameter array with the folowing options: `
 		{
 			minWidth: 0, 
 			maxWidth: 767, 
-			color: '#00ff44',
 			name: 'Mobile'
 		}
 	));

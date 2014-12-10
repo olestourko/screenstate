@@ -12,32 +12,29 @@
 		<script type="text/javascript">
 			jQuery(function ($) {		
 				/*Setup some callbacks for each state*/
-				var screenStateManager = new ScreenStateManager(true);		
-				var desktop = screenStateManager.add(new ScreenState(
+				var sSM = new ScreenStateManager(true);		
+				var desktop = sSM.add(new ScreenState(
 					{
 						minWidth: 768, 
 						maxWidth: 65536, 
-						color: '#ff4400',
 						name: 'Desktop'
 					}
 				));		
-				var tablet = screenStateManager.add(new ScreenState(
+				var tablet = sSM.add(new ScreenState(
 					{
 						minWidth: 480, 
 						maxWidth: 767, 
-						color: '#00ff44',
 						name: 'Tablet'
 					}
 				));
-				var phone = screenStateManager.add(new ScreenState(
+				var phone = sSM.add(new ScreenState(
 					{
 						minWidth: 0, 
 						maxWidth: 479, 
-						color: '#4400ff',
 						name: 'Phone'
 					}
 				));
-								
+				
 				desktop.addEnterCallback(function() { 
 					console.log("Entered: Desktop Screen"); 
 				});
@@ -59,8 +56,8 @@
 				});
 				
 				//Test getting a screenstate
-				console.log(screenStateManager.getScreenState('Desktop').toString());
-				screenStateManager.resize(true); //Use this to force a refresh
+				console.log(sSM.getScreenState('Desktop').toString());
+				sSM.resize(true); //Use this to force a refresh
 						
 				jQuery(window).on('screenstate_enter', function(e, screenState) {
 					console.log('Entered screenstate: ' + screenState.toString());
